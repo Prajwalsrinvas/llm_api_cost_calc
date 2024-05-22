@@ -6,6 +6,7 @@ import requests
 import streamlit as st
 from bs4 import BeautifulSoup
 
+st.set_page_config(page_title="llm_api_cost_calc", page_icon="💰", layout="wide")
 
 @st.cache_data(ttl=60 * 10)
 def get_llm_api_cost():
@@ -71,7 +72,7 @@ default_providers = ["Anthropic", "Google", "OpenAI"]
 with st.sidebar:
     input_tokens = st.number_input("Input Tokens", value=1000)
     output_tokens = st.number_input("Output Tokens", value=100)
-    api_calls = st.number_input("API Calls", value=10)
+    api_calls = st.number_input("API Calls", value=100)
 
     selected_providers = st.multiselect(
         "Select Providers", options=providers, default=default_providers
