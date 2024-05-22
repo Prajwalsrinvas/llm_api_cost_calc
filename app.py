@@ -66,7 +66,7 @@ df.provider.replace("OpenAI / Azure", "OpenAI", inplace=True)
 providers = df.provider.unique()
 
 # Default values
-default_providers = ["Anthropic", "Google", "OpenAI"]
+default_providers = ["OpenAI"]
 
 # User inputs in the sidebar
 with st.sidebar:
