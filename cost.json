@@ -1,0 +1,173 @@
+{
+    "Chat/Completion Models": [
+        {
+            "model_name": "GPT-4o (omni)",
+            "context": "128K",
+            "provider": "OpenAI",
+            "input_token_cost_per_thousand": 0.005,
+            "output_token_cost_per_thousand": 0.015
+        },
+        {
+            "model_name": "GPT-4 Turbo",
+            "context": "128K",
+            "provider": "OpenAI / Azure",
+            "input_token_cost_per_thousand": 0.01,
+            "output_token_cost_per_thousand": 0.03
+        },
+        {
+            "model_name": "GPT-3.5 Turbo",
+            "context": "16K",
+            "provider": "OpenAI / Azure",
+            "input_token_cost_per_thousand": 0.0005,
+            "output_token_cost_per_thousand": 0.0015
+        },
+        {
+            "model_name": "GPT-4",
+            "context": "8K",
+            "provider": "OpenAI / Azure",
+            "input_token_cost_per_thousand": 0.03,
+            "output_token_cost_per_thousand": 0.06
+        },
+        {
+            "model_name": "Claude 3 Haiku",
+            "context": "200K",
+            "provider": "Anthropic",
+            "input_token_cost_per_thousand": 0.00025,
+            "output_token_cost_per_thousand": 0.00125
+        },
+        {
+            "model_name": "Claude 3 Sonnet",
+            "context": "200K",
+            "provider": "Anthropic",
+            "input_token_cost_per_thousand": 0.003,
+            "output_token_cost_per_thousand": 0.015
+        },
+        {
+            "model_name": "Claude 3 Opus",
+            "context": "200K",
+            "provider": "Anthropic",
+            "input_token_cost_per_thousand": 0.015,
+            "output_token_cost_per_thousand": 0.075
+        },
+        {
+            "model_name": "Llama 3 70b",
+            "context": "8K",
+            "provider": "Meta (via Deepinfra)",
+            "input_token_cost_per_thousand": 0.00059,
+            "output_token_cost_per_thousand": 0.00079
+        },
+        {
+            "model_name": "Llama 2 70b",
+            "context": "4K",
+            "provider": "Meta (via Deepinfra)",
+            "input_token_cost_per_thousand": 0.00064,
+            "output_token_cost_per_thousand": 0.0008
+        },
+        {
+            "model_name": "Gemini 1.0 Pro",
+            "context": "32K",
+            "provider": "Google",
+            "input_token_cost_per_thousand": 0.0005,
+            "output_token_cost_per_thousand": 0.0015
+        },
+        {
+            "model_name": "Gemini 1.5 Pro",
+            "context": "1M",
+            "provider": "Google",
+            "input_token_cost_per_thousand": 0.007,
+            "output_token_cost_per_thousand": 0.021
+        },
+        {
+            "model_name": "Command",
+            "context": "4K",
+            "provider": "Cohere",
+            "input_token_cost_per_thousand": 0.01,
+            "output_token_cost_per_thousand": 0.02
+        },
+        {
+            "model_name": "Command R",
+            "context": "128K IN/4K OUT",
+            "provider": "Cohere",
+            "input_token_cost_per_thousand": 0.0005,
+            "output_token_cost_per_thousand": 0.0015
+        },
+        {
+            "model_name": "Command R+",
+            "context": "128K",
+            "provider": "Cohere",
+            "input_token_cost_per_thousand": 0.003,
+            "output_token_cost_per_thousand": 0.015
+        },
+        {
+            "model_name": "Mixtral 8x7B",
+            "context": "32K",
+            "provider": "Mistral AI (via Anyscale)",
+            "input_token_cost_per_thousand": 0.0005,
+            "output_token_cost_per_thousand": 0.0005
+        },
+        {
+            "model_name": "Mistral Small",
+            "context": "32K",
+            "provider": "Mistral AI",
+            "input_token_cost_per_thousand": 0.002,
+            "output_token_cost_per_thousand": 0.006
+        },
+        {
+            "model_name": "Mistral Large",
+            "context": "32K",
+            "provider": "Mistral AI",
+            "input_token_cost_per_thousand": 0.008,
+            "output_token_cost_per_thousand": 0.024
+        },
+        {
+            "model_name": "DBRX",
+            "context": "32K",
+            "provider": "DataBricks",
+            "input_token_cost_per_thousand": 0.00225,
+            "output_token_cost_per_thousand": 0.00675
+        }
+    ],
+    "Fine-tuning models": [
+        {
+            "model_name": "GPT-3.5 Turbo",
+            "context": "4K",
+            "provider": "OpenAI",
+            "input_token_cost_per_thousand": 0.012,
+            "output_token_cost_per_thousand": 0.016
+        },
+        {
+            "model_name": "PaLM 2",
+            "context": "8K",
+            "provider": "Google",
+            "input_token_cost_per_thousand": 0.002,
+            "output_token_cost_per_thousand": 0.002
+        }
+    ],
+    "Embedding models": [
+        {
+            "model_name": "3 Small",
+            "provider": "OpenAI / Azure",
+            "input_token_cost_per_thousand": 2e-05
+        },
+        {
+            "model_name": "3 Large",
+            "provider": "OpenAI / Azure",
+            "input_token_cost_per_thousand": 0.00013
+        },
+        {
+            "model_name": "Ada v2",
+            "provider": "OpenAI / Azure",
+            "input_token_cost_per_thousand": 0.0001
+        },
+        {
+            "model_name": "PaLM 2",
+            "provider": "Google",
+            "input_token_cost_per_thousand": 0.0004
+        },
+        {
+            "model_name": "Embed v3.0",
+            "provider": "Cohere",
+            "input_token_cost_per_thousand": 0.0001
+        }
+    ]
+}
