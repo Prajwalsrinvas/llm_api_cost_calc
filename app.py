@@ -43,6 +43,8 @@ def get_llm_api_cost():
     # Fix decimal number formats (prepend zero to decimal numbers without leading zero)
     corrected_text = re.sub(r":\s*\.([0-9]+)", r": 0.\1", corrected_text)
 
+    corrected_text = corrected_text.split(",A=")[0]
+
     # Parse the corrected JSON text
     data = json.loads(corrected_text)
 
