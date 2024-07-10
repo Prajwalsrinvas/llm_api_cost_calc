@@ -92,7 +92,8 @@ def calculate_costs(
     df["Relative Cost"] = df["Relative Cost"].apply(
         lambda x: f"{x:.2f} * {default_model}"
     )
-
+    
+    df = df.sort_values(by="Total")
     df["Total"] = df["Total"].apply(lambda x: f"${x:.2f}")
 
     if show_token_costs:
@@ -113,7 +114,7 @@ def calculate_costs(
     else:
         columns = ["model_name", "provider", "Total", "Relative Cost"]
 
-    return df[columns].sort_values(by="Total")
+    return df[columns]
 
 
 def create_total_cost_chart(df: pd.DataFrame) -> px.bar:
