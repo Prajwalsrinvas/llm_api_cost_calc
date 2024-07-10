@@ -29,14 +29,7 @@
             "output_token_cost_per_thousand": 0.06
         },
         {
-            "model_name": "Claude 3 Haiku",
-            "context": "200K",
-            "provider": "Anthropic",
-            "input_token_cost_per_thousand": 0.00025,
-            "output_token_cost_per_thousand": 0.00125
-        },
-        {
-            "model_name": "Claude 3 Sonnet",
+            "model_name": "Claude 3.5 Sonnet",
             "context": "200K",
             "provider": "Anthropic",
             "input_token_cost_per_thousand": 0.003,
@@ -48,6 +41,13 @@
             "provider": "Anthropic",
             "input_token_cost_per_thousand": 0.015,
             "output_token_cost_per_thousand": 0.075
+        },
+        {
+            "model_name": "Claude 3 Haiku",
+            "context": "200K",
+            "provider": "Anthropic",
+            "input_token_cost_per_thousand": 0.00025,
+            "output_token_cost_per_thousand": 0.00125
         },
         {
             "model_name": "Llama 3 70b",
@@ -64,11 +64,25 @@
             "output_token_cost_per_thousand": 0.0008
         },
         {
-            "model_name": "Gemini 1.0 Pro",
-            "context": "32K",
+            "model_name": "Gemini 1.5 Flash",
+            "context": "128K",
             "provider": "Google",
-            "input_token_cost_per_thousand": 0.0005,
-            "output_token_cost_per_thousand": 0.0015
+            "input_token_cost_per_thousand": 0.00035,
+            "output_token_cost_per_thousand": 0.00105
+        },
+        {
+            "model_name": "Gemini 1.5 Flash",
+            "context": "1M",
+            "provider": "Google",
+            "input_token_cost_per_thousand": 0.0007,
+            "output_token_cost_per_thousand": 0.0021
+        },
+        {
+            "model_name": "Gemini 1.5 Pro",
+            "context": "128K",
+            "provider": "Google",
+            "input_token_cost_per_thousand": 0.0035,
+            "output_token_cost_per_thousand": 0.0105
         },
         {
             "model_name": "Gemini 1.5 Pro",
@@ -76,6 +90,13 @@
             "provider": "Google",
             "input_token_cost_per_thousand": 0.007,
             "output_token_cost_per_thousand": 0.021
+        },
+        {
+            "model_name": "Gemini 1.0 Pro",
+            "context": "32K",
+            "provider": "Google",
+            "input_token_cost_per_thousand": 0.0005,
+            "output_token_cost_per_thousand": 0.0015
         },
         {
             "model_name": "Command",
