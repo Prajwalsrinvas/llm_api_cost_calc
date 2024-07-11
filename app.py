@@ -106,13 +106,14 @@ def calculate_costs(
         columns = [
             "model_name",
             "provider",
+            "context",
             "Input Token Cost (per 1k)",
             "Output Token Cost (per 1k)",
             "Total",
             "Relative Cost",
         ]
     else:
-        columns = ["model_name", "provider", "Total", "Relative Cost"]
+        columns = ["model_name", "provider","context","Total", "Relative Cost"]
 
     return df[columns]
 
