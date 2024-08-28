@@ -20,7 +20,7 @@ JSON_FILE_PATH = "cost.json"
 
 def extract_and_correct_json(text: str) -> Dict:
     """Extract and correct JSON data from the script content."""
-    pattern = r"var p=(.*?),x"
+    pattern = r"let x=(.*?),f="
     json_str = re.search(pattern, text).group(1)
 
     # Correct JSON format
@@ -92,7 +92,7 @@ def calculate_costs(
     df["Relative Cost"] = df["Relative Cost"].apply(
         lambda x: f"{x:.2f} * {default_model}"
     )
-    
+
     df = df.sort_values(by="Total")
     df["Total"] = df["Total"].apply(lambda x: f"${x:.2f}")
 
@@ -113,7 +113,7 @@ def calculate_costs(
             "Relative Cost",
         ]
     else:
-        columns = ["model_name", "provider","context","Total", "Relative Cost"]
+        columns = ["model_name", "provider", "context", "Total", "Relative Cost"]
 
     return df[columns]
 

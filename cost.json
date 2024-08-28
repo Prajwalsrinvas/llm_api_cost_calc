@@ -1,11 +1,25 @@
 {
     "Chat/Completion Models": [
         {
-            "model_name": "GPT-4o (omni)",
+            "model_name": "GPT-4o-2024-08-06",
+            "context": "128K",
+            "provider": "OpenAI",
+            "input_token_cost_per_thousand": 0.0025,
+            "output_token_cost_per_thousand": 0.01
+        },
+        {
+            "model_name": "GPT-4o",
             "context": "128K",
             "provider": "OpenAI",
             "input_token_cost_per_thousand": 0.005,
             "output_token_cost_per_thousand": 0.015
+        },
+        {
+            "model_name": "GPT-4o mini",
+            "context": "128K",
+            "provider": "OpenAI",
+            "input_token_cost_per_thousand": 0.00015,
+            "output_token_cost_per_thousand": 0.0006
         },
         {
             "model_name": "GPT-4 Turbo",
@@ -50,32 +64,39 @@
             "output_token_cost_per_thousand": 0.00125
         },
         {
-            "model_name": "Llama 3 70b",
-            "context": "8K",
+            "model_name": "Llama 3.1 405b",
+            "context": "32K",
+            "provider": "Meta (via Deepinfra)",
+            "input_token_cost_per_thousand": 0.0027,
+            "output_token_cost_per_thousand": 0.0027
+        },
+        {
+            "model_name": "Llama 3.1 70b",
+            "context": "128K",
             "provider": "Meta (via Deepinfra)",
             "input_token_cost_per_thousand": 0.00059,
             "output_token_cost_per_thousand": 0.00079
         },
         {
-            "model_name": "Llama 2 70b",
-            "context": "4K",
-            "provider": "Meta (via Deepinfra)",
-            "input_token_cost_per_thousand": 0.00064,
-            "output_token_cost_per_thousand": 0.0008
+            "model_name": "Llama 3 70b",
+            "context": "8K",
+            "provider": "Meta (via Deepinfra/Groq)",
+            "input_token_cost_per_thousand": 0.00059,
+            "output_token_cost_per_thousand": 0.00079
         },
         {
             "model_name": "Gemini 1.5 Flash",
             "context": "128K",
             "provider": "Google",
-            "input_token_cost_per_thousand": 0.00035,
-            "output_token_cost_per_thousand": 0.00105
+            "input_token_cost_per_thousand": 7.5e-05,
+            "output_token_cost_per_thousand": 3e-05
         },
         {
             "model_name": "Gemini 1.5 Flash",
             "context": "1M",
             "provider": "Google",
-            "input_token_cost_per_thousand": 0.0007,
-            "output_token_cost_per_thousand": 0.0021
+            "input_token_cost_per_thousand": 1.5e-05,
+            "output_token_cost_per_thousand": 6e-05
         },
         {
             "model_name": "Gemini 1.5 Pro",
@@ -86,7 +107,7 @@
         },
         {
             "model_name": "Gemini 1.5 Pro",
-            "context": "1M",
+            "context": "2M",
             "provider": "Google",
             "input_token_cost_per_thousand": 0.007,
             "output_token_cost_per_thousand": 0.021
