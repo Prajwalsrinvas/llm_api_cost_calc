@@ -1,6 +1,6 @@
 import json
 import re
-from typing import Dict
+from typing import Dict, Tuple
 
 import pandas as pd
 import plotly.express as px
@@ -14,8 +14,22 @@ st.set_page_config(page_title="LLM API Cost Calculator", page_icon="💰", layou
 DATA_URL = "https://docsbot.ai/tools/gpt-openai-api-pricing-calculator"
 CACHE_TTL = 60 * 60  # 60 minutes
 DEFAULT_PROVIDERS = ["Anthropic", "OpenAI"]
-DEFAULT_MODEL = "GPT-3.5 Turbo"
+DEFAULT_MODEL = "GPT-4o mini"
 JSON_FILE_PATH = "cost.json"
+EXCHANGE_RATE_URL = "https://api.exchangerate-api.com/v4/latest/USD"
+
+
+@st.cache_data(ttl=CACHE_TTL)
+def get_exchange_rate() -> float:
+    """Fetch and cache the USD to INR exchange rate."""
+    try:
+        response = requests.get(EXCHANGE_RATE_URL)
+        response.raise_for_status()
+        data = response.json()
+        return data["rates"]["INR"]
+    except requests.RequestException as e:
+        st.error(f"Error fetching exchange rate: {str(e)}")
+        return 83.91  # Fallback exchange rate, as on 2024-09-02
 
 
 def extract_and_correct_json(text: str) -> Dict:
@@ -80,7 +94,9 @@ def calculate_costs(
     api_calls: int,
     default_model: str,
     show_token_costs: bool,
-) -> pd.DataFrame:
+    currency: str,
+    exchange_rate: float,
+) -> Tuple[pd.DataFrame, float]:
     """Calculate total and relative costs for each model."""
     df["Total"] = (
         (input_tokens / 1000) * df["input_token_cost_per_thousand"]
@@ -94,15 +110,27 @@ def calculate_costs(
     )
 
     df = df.sort_values(by="Total")
-    df["Total"] = df["Total"].apply(lambda x: f"${x:.2f}")
+
+    if currency == "INR":
+        df["Total"] = df["Total"].apply(lambda x: f"₹{x * exchange_rate:.2f}")
+    else:
+        df["Total"] = df["Total"].apply(lambda x: f"${x:.2f}")
 
     if show_token_costs:
-        df["Input Token Cost (per 1k)"] = df["input_token_cost_per_thousand"].apply(
-            lambda x: f"${x:.4f}"
-        )
-        df["Output Token Cost (per 1k)"] = df["output_token_cost_per_thousand"].apply(
-            lambda x: f"${x:.4f}"
-        )
+        if currency == "INR":
+            df["Input Token Cost (per 1k)"] = df["input_token_cost_per_thousand"].apply(
+                lambda x: f"₹{x * exchange_rate:.4f}"
+            )
+            df["Output Token Cost (per 1k)"] = df[
+                "output_token_cost_per_thousand"
+            ].apply(lambda x: f"₹{x * exchange_rate:.4f}")
+        else:
+            df["Input Token Cost (per 1k)"] = df["input_token_cost_per_thousand"].apply(
+                lambda x: f"${x:.4f}"
+            )
+            df["Output Token Cost (per 1k)"] = df[
+                "output_token_cost_per_thousand"
+            ].apply(lambda x: f"${x:.4f}")
         columns = [
             "model_name",
             "provider",
@@ -115,26 +143,28 @@ def calculate_costs(
     else:
         columns = ["model_name", "provider", "context", "Total", "Relative Cost"]
 
-    return df[columns]
+    return df[columns], default_cost
 
 
-def create_total_cost_chart(df: pd.DataFrame) -> px.bar:
+def create_total_cost_chart(df: pd.DataFrame, currency: str) -> px.bar:
     """Create a horizontal bar chart for total cost by model."""
     df_chart = df.copy()
-    df_chart["Total"] = df_chart["Total"].str.replace("$", "").astype(float)
+    df_chart["Total"] = (
+        df_chart["Total"].str.replace("$", "").str.replace("₹", "").astype(float)
+    )
     fig = px.bar(
         df_chart,
-        y="model_name",  # Swap x and y
-        x="Total",  # Swap x and y
+        y="model_name",
+        x="Total",
         color="provider",
-        title="Total Cost by Model",
-        orientation="h",  # Set orientation to horizontal
+        title=f"Total Cost by Model ({currency})",
+        orientation="h",
     )
     fig.update_layout(
-        yaxis_title="Model",  # Swap x and y axis titles
-        xaxis_title="Total Cost ($)",
-        height=600,  # Increase height to accommodate all models
-        yaxis={"categoryorder": "total descending"},  # Sort bars by total cost
+        yaxis_title="Model",
+        xaxis_title=f"Total Cost ({currency})",
+        height=600,
+        yaxis={"categoryorder": "total descending"},
     )
     return fig
 
@@ -145,6 +175,7 @@ def main():
     df = load_data()
     providers = df.provider.unique()
     models = df.model_name.unique()
+    exchange_rate = get_exchange_rate()
 
     with st.sidebar:
         st.subheader("Input Parameters")
@@ -173,20 +204,32 @@ def main():
 
         show_token_costs = st.toggle("Show input/output tokens cost", value=False)
 
+        currency = st.radio("Select Currency", options=["INR", "USD"], horizontal=True)
+
     df_filtered = df[df.provider.isin(selected_providers)]
-    df_costs = calculate_costs(
+    df_costs, default_cost = calculate_costs(
         df_filtered,
         input_tokens,
         output_tokens,
         api_calls,
         default_model,
         show_token_costs,
+        currency,
+        exchange_rate,
     )
 
     st.dataframe(df_costs, use_container_width=True, hide_index=True)
 
-    fig_total = create_total_cost_chart(df_costs)
+    fig_total = create_total_cost_chart(df_costs, currency)
     st.plotly_chart(fig_total, use_container_width=True)
+
+    # Display the default model cost
+    if currency == "INR":
+        st.write(
+            f"Default model ({default_model}) cost: ₹{default_cost * exchange_rate:.2f}"
+        )
+    else:
+        st.write(f"Default model ({default_model}) cost: ${default_cost:.2f}")
 
 
 if __name__ == "__main__":
