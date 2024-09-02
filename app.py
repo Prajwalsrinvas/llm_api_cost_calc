@@ -148,9 +148,19 @@ def main():
 
     with st.sidebar:
         st.subheader("Input Parameters")
-        input_tokens = st.number_input("Input Tokens", value=10000, min_value=1)
-        output_tokens = st.number_input("Output Tokens", value=1000, min_value=1)
-        api_calls = st.number_input("API Calls", value=100, min_value=1)
+        input_tokens = st.number_input(
+            "Input Tokens",
+            value=int(st.query_params.get("input_tokens", 1000)),
+            min_value=1,
+        )
+        output_tokens = st.number_input(
+            "Output Tokens",
+            value=int(st.query_params.get("output_tokens", 1000)),
+            min_value=1,
+        )
+        api_calls = st.number_input(
+            "API Calls", value=int(st.query_params.get("api_calls", 100)), min_value=1
+        )
 
         selected_providers = st.multiselect(
             "Select Providers", options=providers, default=DEFAULT_PROVIDERS
