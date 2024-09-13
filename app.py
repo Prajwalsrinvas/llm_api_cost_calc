@@ -34,7 +34,7 @@ def get_exchange_rate() -> float:
 
 def extract_and_correct_json(text: str) -> Dict:
     """Extract and correct JSON data from the script content."""
-    pattern = r"let x=(.*?),f="
+    pattern = r"let g=(.*?),f="
     json_str = re.search(pattern, text).group(1)
 
     # Correct JSON format
